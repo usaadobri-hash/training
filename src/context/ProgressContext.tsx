@@ -45,21 +45,75 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
             .eq('user_id', user.id)
             .single();
           
+          let finalCompleted: string[] = [];
+          let finalScores: QuizScore[] = [];
+          let finalExam = false;
+
           if (data) {
-            setCompletedModules(data.completed_modules || []);
-            setQuizScores(data.quiz_scores || []);
-            setExamPassed(data.exam_passed || false);
-          } else if (error && error.code === 'PGRST116') {
-            // No row exists, insert one
-            await supabase.from('user_progress').insert({
-              user_id: user.id,
-              completed_modules: [],
-              quiz_scores: [],
-              exam_passed: false
-            });
-          } else {
+            finalCompleted = data.completed_modules || [];
+            finalScores = data.quiz_scores || [];
+            finalExam = data.exam_passed || false;
+          } else if (error && error.code !== 'PGRST116') {
             console.error("Supabase fetch error:", error);
           }
+
+          // LOCAL STORAGE MIGRATION
+          let needsMigration = false;
+          const savedCompleted = localStorage.getItem("da_completedModules");
+          if (savedCompleted) {
+            try {
+              const parsed = JSON.parse(savedCompleted);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                finalCompleted = Array.from(new Set([...finalCompleted, ...parsed]));
+                needsMigration = true;
+              }
+            } catch (e) {}
+            localStorage.removeItem("da_completedModules");
+          }
+
+          const savedScores = localStorage.getItem("da_quizScores");
+          if (savedScores) {
+            try {
+              const parsed = JSON.parse(savedScores);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                parsed.forEach((localScore: any) => {
+                  const existing = finalScores.find((s) => s.moduleId === localScore.moduleId);
+                  if (existing) {
+                    if (localScore.score > existing.score) {
+                      existing.score = localScore.score;
+                      existing.date = localScore.date || existing.date;
+                      needsMigration = true;
+                    }
+                  } else {
+                    finalScores.push(localScore);
+                    needsMigration = true;
+                  }
+                });
+              }
+            } catch (e) {}
+            localStorage.removeItem("da_quizScores");
+          }
+
+          const savedExam = localStorage.getItem("da_examPassed");
+          if (savedExam === "true" && !finalExam) {
+            finalExam = true;
+            needsMigration = true;
+            localStorage.removeItem("da_examPassed");
+          }
+
+          if (needsMigration || (!data && error?.code === 'PGRST116')) {
+            await supabase.from('user_progress').upsert({
+              user_id: user.id,
+              completed_modules: finalCompleted,
+              quiz_scores: finalScores,
+              exam_passed: finalExam
+            });
+          }
+
+          setCompletedModules(finalCompleted);
+          setQuizScores(finalScores);
+          setExamPassed(finalExam);
         } catch (err) {
           console.error("Supabase connection error:", err);
         }
