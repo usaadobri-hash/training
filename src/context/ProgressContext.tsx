@@ -34,23 +34,8 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const supabase = createClient();
 
   useEffect(() => {
-    const loadData = async () => {
+      const loadData = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      
-      const loadLocal = () => {
-        const savedCompleted = localStorage.getItem("da_completedModules");
-        const savedScores = localStorage.getItem("da_quizScores");
-        const savedExam = localStorage.getItem("da_examPassed");
-        if (savedCompleted) {
-          try { setCompletedModules(JSON.parse(savedCompleted)); } catch(e){}
-        }
-        if (savedScores) {
-          try { setQuizScores(JSON.parse(savedScores)); } catch(e){}
-        }
-        if (savedExam === "true") {
-          setExamPassed(true);
-        }
-      };
 
       if (user) {
         try {
@@ -73,15 +58,11 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
               exam_passed: false
             });
           } else {
-            console.error("Supabase fetch error, falling back to local storage:", error);
-            loadLocal();
+            console.error("Supabase fetch error:", error);
           }
         } catch (err) {
           console.error("Supabase connection error:", err);
-          loadLocal();
         }
-      } else {
-        loadLocal();
       }
       setIsLoaded(true);
     };
@@ -91,10 +72,6 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem("da_completedModules", JSON.stringify(completedModules));
-      localStorage.setItem("da_quizScores", JSON.stringify(quizScores));
-      localStorage.setItem("da_examPassed", examPassed ? "true" : "false");
-
       const syncSupabase = async () => {
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
@@ -155,9 +132,6 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     setCompletedModules([]);
     setQuizScores([]);
     setExamPassed(false);
-    localStorage.removeItem("da_completedModules");
-    localStorage.removeItem("da_quizScores");
-    localStorage.removeItem("da_examPassed");
   };
 
   return (
