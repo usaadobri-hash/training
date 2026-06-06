@@ -40,7 +40,7 @@ export default function DashboardPage() {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
         <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-white mb-2">Welcome back!</h1>
-        <p className="text-zinc-500 dark:text-zinc-400">Here's an overview of your training progress.</p>
+        <p className="text-zinc-500 dark:text-zinc-400">Let&apos;s dive into the core dispatching principles and learn the industry standards.</p>
       </div>
 
       <div className="space-y-6">

@@ -85,7 +85,7 @@ export default async function LoginPage(props: { searchParams: Promise<{ error?:
           </CardContent>
           <CardFooter className="flex flex-col space-y-4 pb-8 relative z-10">
             <div className="text-sm text-center text-zinc-400 w-full">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
                 Sign up
               </Link>

@@ -52,8 +52,7 @@ export default async function ModulePage({ params }: { params: Promise<{ id: str
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-500/20 rounded-2xl p-6">
         <div>
-          <h3 className="text-lg font-bold text-blue-900 dark:text-white mb-1">Ready to test your knowledge?</h3>
-          <p className="text-blue-700/80 dark:text-zinc-400 text-sm">Take the quiz to test what you've learned.</p>
+          <p className="text-amber-700/80 dark:text-amber-400/80 font-medium mb-6">Ready to test your knowledge? Let&apos;s take the quiz.</p>
         </div>
         <Link href={`/dashboard/modules/${moduleData.id}/quiz`} className="shrink-0">
           <button className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all shadow-[0_0_15px_rgba(59,130,246,0.4)] flex items-center gap-2">

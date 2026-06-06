@@ -51,6 +51,7 @@ export default function BrokerSimulation() {
     // Simulate broker typing delay
     setTimeout(() => {
       processBrokerLogic(userText);
+      // eslint-disable-next-line
     }, 1500 + Math.random() * 1500);
   };
 

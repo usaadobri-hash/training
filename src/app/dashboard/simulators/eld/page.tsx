@@ -14,6 +14,44 @@ type LogEntry = {
   duration: number;
 };
 
+const formatTime = (hourNum: number) => {
+  const h = Math.floor(hourNum);
+  const m = hourNum % 1 === 0.5 ? '30' : '00';
+  return `${h.toString().padStart(2, '0')}:${m}`;
+};
+
+const CircularRing = ({ remaining, max, label, colorHex, tailwindColor }: { remaining: number, max: number, label: string, colorHex: string, tailwindColor: string }) => {
+  const radius = 42;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (Math.max(0, Math.min(remaining, max)) / max) * circumference;
+  
+  return (
+    <div className="flex flex-col items-center justify-center relative w-[100px] h-[100px] shrink-0">
+      <svg className="w-full h-full -rotate-90 transform drop-shadow-lg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r={radius} stroke="currentColor" strokeWidth="8" fill="transparent" className="text-zinc-100 dark:text-white/5" />
+        <circle 
+          cx="50" cy="50" r={radius} 
+          stroke={remaining <= 0 ? '#ef4444' : colorHex} 
+          strokeWidth="8" 
+          fill="transparent" 
+          strokeDasharray={circumference} 
+          strokeDashoffset={strokeDashoffset} 
+          strokeLinecap="round"
+          className="transition-all duration-700 ease-out"
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center pt-1">
+        <span className={`text-base font-black ${remaining <= 0 ? 'text-red-600 dark:text-red-400 animate-pulse' : 'text-zinc-900 dark:text-white'} leading-none`}>
+          {formatTime(remaining)}
+        </span>
+        <span className={`text-[11px] font-bold mt-0.5`} style={{ color: remaining <= 0 ? '#ef4444' : colorHex }}>
+          {label}
+        </span>
+      </div>
+    </div>
+  );
+};
+
 export default function EldSimulator() {
   const [clock, setClock] = useState({ day: 1, hour: 8 });
   const [driveTime, setDriveTime] = useState(0); // Max 11
@@ -22,11 +60,7 @@ export default function EldSimulator() {
   const [timeSinceBreak, setTimeSinceBreak] = useState(0); // Max 8
   const [logs, setLogs] = useState<LogEntry[]>([]);
 
-  const formatTime = (hourNum: number) => {
-    const h = Math.floor(hourNum);
-    const m = hourNum % 1 === 0.5 ? '30' : '00';
-    return `${h.toString().padStart(2, '0')}:${m}`;
-  };
+
 
   const addTime = (hours: number) => {
     setClock(prev => {
@@ -100,41 +134,7 @@ export default function EldSimulator() {
   // Can they legally drive?
   const canDrive = !isDriveViolation && !isShiftViolation && !isCycleViolation && !isBreakViolation;
 
-  // Circular Progress Component
-  const CircularRing = ({ remaining, max, label, colorHex, tailwindColor }: { remaining: number, max: number, label: string, colorHex: string, tailwindColor: string }) => {
-    const radius = 42;
-    const circumference = 2 * Math.PI * radius;
-    // Stroke dashoffset for remaining time
-    const strokeDashoffset = circumference - (Math.max(0, Math.min(remaining, max)) / max) * circumference;
-    
-    return (
-      <div className="flex flex-col items-center justify-center relative w-[100px] h-[100px] shrink-0">
-        <svg className="w-full h-full -rotate-90 transform drop-shadow-lg" viewBox="0 0 100 100">
-          {/* Background Track */}
-          <circle cx="50" cy="50" r={radius} stroke="currentColor" strokeWidth="8" fill="transparent" className="text-zinc-100 dark:text-white/5" />
-          {/* Progress Ring */}
-          <circle 
-            cx="50" cy="50" r={radius} 
-            stroke={remaining <= 0 ? '#ef4444' : colorHex} 
-            strokeWidth="8" 
-            fill="transparent" 
-            strokeDasharray={circumference} 
-            strokeDashoffset={strokeDashoffset} 
-            strokeLinecap="round"
-            className="transition-all duration-700 ease-out"
-          />
-        </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center pt-1">
-          <span className={`text-base font-black ${remaining <= 0 ? 'text-red-600 dark:text-red-400 animate-pulse' : 'text-zinc-900 dark:text-white'} leading-none`}>
-            {formatTime(remaining)}
-          </span>
-          <span className={`text-[11px] font-bold mt-0.5`} style={{ color: remaining <= 0 ? '#ef4444' : colorHex }}>
-            {label}
-          </span>
-        </div>
-      </div>
-    );
-  };
+
 
   return (
     <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500 pb-20">

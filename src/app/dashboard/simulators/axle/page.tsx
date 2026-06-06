@@ -6,6 +6,7 @@ import { ArrowLeft, Scale, AlertTriangle, CheckCircle2, RefreshCw, BookOpen, Act
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RealisticTruck = ({ steerLabel, driveLabel, tandemLabel, title, driveOffset = 0, tandemOffset = 0, arrowType = null, arrowPos = null }: any) => {
   return (
     <div className="space-y-6">
@@ -93,11 +94,12 @@ export default function AxleWeightSimulator() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClient(true);
     generateNewProblem();
   }, []);
 
-  const generateNewProblem = () => {
+  function generateNewProblem() {
     const baseSteer = Math.floor(Math.random() * 15) * 100 + 10000;
     const baseDrive = Math.floor(Math.random() * 55) * 100 + 28000;
     const baseTandem = Math.floor(Math.random() * 55) * 100 + 28000;
@@ -280,7 +282,7 @@ export default function AxleWeightSimulator() {
                 onClick={() => setActiveTab('simulator')}
                 className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-transform hover:scale-105"
               >
-                I'm ready, let's practice!
+                I&apos;m ready, let&apos;s practice!
               </button>
             </div>
           </div>

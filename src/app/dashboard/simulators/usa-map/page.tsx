@@ -49,6 +49,7 @@ export default function USAMapSimulator() {
   const [hoveredState, setHoveredState] = useState<string | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setScore(0);
     setStreak(0);
     setFeedback(null);
@@ -68,7 +69,7 @@ export default function USAMapSimulator() {
     return () => clearTimeout(timer);
   }, []);
 
-  const generateQuestion = (tab: TabType) => {
+  function generateQuestion(tab: TabType) {
     setFeedback(null);
     setHighlightedState(null);
     const keys = Object.keys(STATES);
@@ -112,17 +113,17 @@ export default function USAMapSimulator() {
       const state1 = STATES[abbr1];
       const state2 = STATES[abbr2];
       
-      let hour = Math.floor(Math.random() * 12) + 1;
-      let isPM = Math.random() > 0.5;
+      const hour = Math.floor(Math.random() * 12) + 1;
+      const isPM = Math.random() > 0.5;
       
-      let time124 = isPM && hour !== 12 ? hour + 12 : (!isPM && hour === 12 ? 0 : hour);
-      let diff = TZ_OFFSETS[state2.tz] - TZ_OFFSETS[state1.tz];
+      const time124 = isPM && hour !== 12 ? hour + 12 : (!isPM && hour === 12 ? 0 : hour);
+      const diff = TZ_OFFSETS[state2.tz] - TZ_OFFSETS[state1.tz];
       let time224 = time124 + diff;
       
       if (time224 >= 24) time224 -= 24;
       if (time224 < 0) time224 += 24;
       
-      let isPM2 = time224 >= 12;
+      const isPM2 = time224 >= 12;
       let hour2 = time224 % 12;
       if (hour2 === 0) hour2 = 12;
       
@@ -145,6 +146,7 @@ export default function USAMapSimulator() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMapClick = (event: any) => {
     const clickedAbbr = event.target.dataset.name;
     

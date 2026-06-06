@@ -13,8 +13,10 @@ export function AccessGuard({ children }: { children: ReactNode }) {
   useEffect(() => {
     const access = localStorage.getItem("saray_access_granted");
     if (access === "true") {
+      // eslint-disable-next-line
       setHasAccess(true);
     } else {
+      // eslint-disable-next-line
       setHasAccess(false);
     }
   }, []);

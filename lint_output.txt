@@ -1,0 +1,356 @@
+
+> frontend@0.1.0 lint
+> eslint
+
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/fix_exam.js
+   1:12  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:10  warning  'e' is defined but never used            @typescript-eslint/no-unused-vars
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/generate_exam.js
+  1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/certificate/page.tsx
+   5:51  warning  'Download' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   6:10  warning  'Card' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  18:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/certificate/page.tsx:18:5
+  16 |     // Generate a unique ID and current date on mount
+  17 |     const today = new Date();
+> 18 |     setDate(today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+     |     ^^^^^^^ Avoid calling setState() directly within an effect
+  19 |     setCertId("DA-" + Math.random().toString(36).substr(2, 9).toUpperCase());
+  20 |   }, []);
+  21 |  react-hooks/set-state-in-effect
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/exam/page.tsx
+  14:9  warning  'router' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/modules/[id]/page.tsx
+   3:21   warning  'CheckCircle2' is defined but never used                         @typescript-eslint/no-unused-vars
+  56:100  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/modules/[id]/quiz/page.tsx
+  6:21  warning  'CheckCircle2' is defined but never used  @typescript-eslint/no-unused-vars
+  6:35  warning  'XCircle' is defined but never used       @typescript-eslint/no-unused-vars
+  7:29  warning  'CardHeader' is defined but never used    @typescript-eslint/no-unused-vars
+  7:41  warning  'CardTitle' is defined but never used     @typescript-eslint/no-unused-vars
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/modules/page.tsx
+   4:10  warning  'Badge' is defined but never used                @typescript-eslint/no-unused-vars
+  10:47  warning  'quizScores' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/page.tsx
+   4:10  warning  'Progress' is defined but never used                             @typescript-eslint/no-unused-vars
+   6:10  warning  'CheckCircle2' is defined but never used                         @typescript-eslint/no-unused-vars
+   6:36  warning  'Trophy' is defined but never used                               @typescript-eslint/no-unused-vars
+   6:44  warning  'FileText' is defined but never used                             @typescript-eslint/no-unused-vars
+   6:54  warning  'ArrowUpRight' is defined but never used                         @typescript-eslint/no-unused-vars
+   6:68  warning  'Award' is defined but never used                                @typescript-eslint/no-unused-vars
+  12:11  warning  'overallProgress' is assigned a value but never used             @typescript-eslint/no-unused-vars
+  30:9   warning  'recentScores' is assigned a value but never used                @typescript-eslint/no-unused-vars
+  43:61  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/settings/page.tsx
+   4:16  warning  'Mail' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  14:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/settings/page.tsx:14:5
+  12 |
+  13 |   useEffect(() => {
+> 14 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  15 |   }, []);
+  16 |
+  17 |   const toggleTheme = () => {  react-hooks/set-state-in-effect
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/axle/page.tsx
+    9:143  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-explicit-any
+   96:5    error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/axle/page.tsx:96:5
+  94 |
+  95 |   useEffect(() => {
+> 96 |     setIsClient(true);
+     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  97 |     generateNewProblem();
+  98 |   }, []);
+  99 |                                                                                                                                                                                                                                                                                                                                                                                                                        react-hooks/set-state-in-effect
+   97:5    error  Error: Cannot access variable before it is declared
+
+`generateNewProblem` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/axle/page.tsx:97:5
+   95 |   useEffect(() => {
+   96 |     setIsClient(true);
+>  97 |     generateNewProblem();
+      |     ^^^^^^^^^^^^^^^^^^ `generateNewProblem` accessed before it is declared
+   98 |   }, []);
+   99 |
+  100 |   const generateNewProblem = () => {
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/axle/page.tsx:100:3
+   98 |   }, []);
+   99 |
+> 100 |   const generateNewProblem = () => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 101 |     const baseSteer = Math.floor(Math.random() * 15) * 100 + 10000;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 102 |     const baseDrive = Math.floor(Math.random() * 55) * 100 + 28000;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 122 |     setTandem(t);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 123 |   };
+      | ^^^^^ `generateNewProblem` is declared here
+  124 |
+  125 |   const slideFifthWheel = (direction: 'forward' | 'backward') => {
+  126 |     if (direction === 'forward') {  react-hooks/immutability
+  283:18   error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react/no-unescaped-entities
+  283:31   error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react/no-unescaped-entities
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/broker/page.tsx
+  54:15  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/broker/page.tsx:54:15
+  52 |     setTimeout(() => {
+  53 |       processBrokerLogic(userText);
+> 54 |     }, 1500 + Math.random() * 1500);
+     |               ^^^^^^^^^^^^^ Cannot call impure function
+  55 |   };
+  56 |
+  57 |   const processBrokerLogic = (userText: string) => {  react-hooks/purity
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx
+    6:52  warning  'CardDescription' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+    8:10  warning  'Progress' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  104:60  warning  'tailwindColor' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  199:18  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx:199:18
+  197 |               {/* Circular Progress Row */}
+  198 |               <div className="flex items-center justify-between sm:justify-around flex-wrap gap-4">
+> 199 |                 <CircularRing remaining={breakRemaining} max={8} label="Break" colorHex="#f59e0b" tailwindColor="text-amber-500" />
+      |                  ^^^^^^^^^^^^ This component is created during render
+  200 |                 <CircularRing remaining={driveRemaining} max={11} label="Drive" colorHex="#10b981" tailwindColor="text-emerald-500" />
+  201 |                 <CircularRing remaining={shiftRemaining} max={14} label="Shift" colorHex="#3b82f6" tailwindColor="text-blue-500" />
+  202 |                 <CircularRing remaining={cycleRemaining} max={70} label="Cycle" colorHex="#a855f7" tailwindColor="text-purple-500" />
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx:104:24
+  102 |
+  103 |   // Circular Progress Component
+> 104 |   const CircularRing = ({ remaining, max, label, colorHex, tailwindColor }: { remaining: number, max: number, label: string, colorHex: string, tailwindColor: string }) => {
+      |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |     const radius = 42;
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     const circumference = 2 * Math.PI * radius;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 136 |     );
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 137 |   };
+      | ^^^^ The component is created during render here
+  138 |
+  139 |   return (
+  140 |     <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500 pb-20">  react-hooks/static-components
+  200:18  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx:200:18
+  198 |               <div className="flex items-center justify-between sm:justify-around flex-wrap gap-4">
+  199 |                 <CircularRing remaining={breakRemaining} max={8} label="Break" colorHex="#f59e0b" tailwindColor="text-amber-500" />
+> 200 |                 <CircularRing remaining={driveRemaining} max={11} label="Drive" colorHex="#10b981" tailwindColor="text-emerald-500" />
+      |                  ^^^^^^^^^^^^ This component is created during render
+  201 |                 <CircularRing remaining={shiftRemaining} max={14} label="Shift" colorHex="#3b82f6" tailwindColor="text-blue-500" />
+  202 |                 <CircularRing remaining={cycleRemaining} max={70} label="Cycle" colorHex="#a855f7" tailwindColor="text-purple-500" />
+  203 |               </div>
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx:104:24
+  102 |
+  103 |   // Circular Progress Component
+> 104 |   const CircularRing = ({ remaining, max, label, colorHex, tailwindColor }: { remaining: number, max: number, label: string, colorHex: string, tailwindColor: string }) => {
+      |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |     const radius = 42;
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     const circumference = 2 * Math.PI * radius;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 136 |     );
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 137 |   };
+      | ^^^^ The component is created during render here
+  138 |
+  139 |   return (
+  140 |     <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500 pb-20">                         react-hooks/static-components
+  201:18  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx:201:18
+  199 |                 <CircularRing remaining={breakRemaining} max={8} label="Break" colorHex="#f59e0b" tailwindColor="text-amber-500" />
+  200 |                 <CircularRing remaining={driveRemaining} max={11} label="Drive" colorHex="#10b981" tailwindColor="text-emerald-500" />
+> 201 |                 <CircularRing remaining={shiftRemaining} max={14} label="Shift" colorHex="#3b82f6" tailwindColor="text-blue-500" />
+      |                  ^^^^^^^^^^^^ This component is created during render
+  202 |                 <CircularRing remaining={cycleRemaining} max={70} label="Cycle" colorHex="#a855f7" tailwindColor="text-purple-500" />
+  203 |               </div>
+  204 |
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx:104:24
+  102 |
+  103 |   // Circular Progress Component
+> 104 |   const CircularRing = ({ remaining, max, label, colorHex, tailwindColor }: { remaining: number, max: number, label: string, colorHex: string, tailwindColor: string }) => {
+      |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |     const radius = 42;
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     const circumference = 2 * Math.PI * radius;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 136 |     );
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 137 |   };
+      | ^^^^ The component is created during render here
+  138 |
+  139 |   return (
+  140 |     <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500 pb-20">                                                                                                                             react-hooks/static-components
+  202:18  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx:202:18
+  200 |                 <CircularRing remaining={driveRemaining} max={11} label="Drive" colorHex="#10b981" tailwindColor="text-emerald-500" />
+  201 |                 <CircularRing remaining={shiftRemaining} max={14} label="Shift" colorHex="#3b82f6" tailwindColor="text-blue-500" />
+> 202 |                 <CircularRing remaining={cycleRemaining} max={70} label="Cycle" colorHex="#a855f7" tailwindColor="text-purple-500" />
+      |                  ^^^^^^^^^^^^ This component is created during render
+  203 |               </div>
+  204 |
+  205 |             </CardContent>
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/eld/page.tsx:104:24
+  102 |
+  103 |   // Circular Progress Component
+> 104 |   const CircularRing = ({ remaining, max, label, colorHex, tailwindColor }: { remaining: number, max: number, label: string, colorHex: string, tailwindColor: string }) => {
+      |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |     const radius = 42;
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     const circumference = 2 * Math.PI * radius;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 136 |     );
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 137 |   };
+      | ^^^^ The component is created during render here
+  138 |
+  139 |   return (
+  140 |     <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500 pb-20">                                                                                                                                                                                                                                      react-hooks/static-components
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/truck-parts/page.tsx
+  8:21  warning  'PlayCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/usa-map/page.tsx
+   52:5   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/usa-map/page.tsx:52:5
+  50 |
+  51 |   useEffect(() => {
+> 52 |     setScore(0);
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  53 |     setStreak(0);
+  54 |     setFeedback(null);
+  55 |     setHighlightedState(null);                                                                                                                                                                 react-hooks/set-state-in-effect
+   57:7   error  Error: Cannot access variable before it is declared
+
+`generateQuestion` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/usa-map/page.tsx:57:7
+  55 |     setHighlightedState(null);
+  56 |     if (activeTab !== 'learn') {
+> 57 |       generateQuestion(activeTab);
+     |       ^^^^^^^^^^^^^^^^ `generateQuestion` accessed before it is declared
+  58 |     }
+  59 |   }, [activeTab]);
+  60 |
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/app/dashboard/simulators/usa-map/page.tsx:71:3
+   69 |   }, []);
+   70 |
+>  71 |   const generateQuestion = (tab: TabType) => {
+      |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  72 |     setFeedback(null);
+      | ^^^^^^^^^^^^^^^^^^^^^^
+>  73 |     setHighlightedState(null);
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 145 |     }
+      | ^^^^^^^^^^^^^^^^^^^^^^
+> 146 |   };
+      | ^^^^^ `generateQuestion` is declared here
+  147 |
+  148 |   const handleMapClick = (event: any) => {
+  149 |     const clickedAbbr = event.target.dataset.name;  react-hooks/immutability
+  115:11  error  'hour' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      prefer-const
+  116:11  error  'isPM' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      prefer-const
+  118:11  error  'time124' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   prefer-const
+  119:11  error  'diff' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      prefer-const
+  125:11  error  'isPM2' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     prefer-const
+  148:34  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-explicit-any
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/components/AccessGuard.tsx
+  16:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/components/AccessGuard.tsx:16:7
+  14 |     const access = localStorage.getItem("saray_access_granted");
+  15 |     if (access === "true") {
+> 16 |       setHasAccess(true);
+     |       ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  17 |     } else {
+  18 |       setHasAccess(false);
+  19 |     }  react-hooks/set-state-in-effect
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/components/Sidebar.tsx
+  10:11  warning  'overallProgress' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/utils/supabase/middleware.ts
+  18:48  warning  'options' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/yahyokhonisroilov/.gemini/antigravity/scratch/dispatcher-academy/frontend/src/utils/supabase/server.ts
+  20:20  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 52 problems (25 errors, 27 warnings)
+  5 errors and 0 warnings potentially fixable with the `--fix` option.
+

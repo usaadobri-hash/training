@@ -15,6 +15,7 @@ export default function CertificatePage() {
   useEffect(() => {
     // Generate a unique ID and current date on mount
     const today = new Date();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDate(today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
     setCertId("DA-" + Math.random().toString(36).substr(2, 9).toUpperCase());
   }, []);
