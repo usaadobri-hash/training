@@ -18,6 +18,11 @@ export default function FinalExamPage() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [isFinished, setIsFinished] = useState(false);
 
+  // Password state
+  const [examPassword, setExamPassword] = useState("");
+  const [isPasswordUnlocked, setIsPasswordUnlocked] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
   const questions = finalExamQuestions;
   const currentQ = questions[currentIdx];
 
@@ -42,13 +47,41 @@ export default function FinalExamPage() {
 
   if (!isLoaded) return null;
 
-  if (completedModules.length < 13) {
+  if (!isPasswordUnlocked) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Exam Locked</h1>
-        <p className="text-zinc-500 dark:text-zinc-400">You must pass all 13 modules before taking the Final Exam.</p>
-        <Link href="/dashboard/modules">
-          <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Return to Curriculum</button>
+        <p className="text-zinc-500 dark:text-zinc-400 mb-4">Please enter the password to access the final exam.</p>
+        <div className="flex items-center gap-2">
+          <input 
+            type="password"
+            value={examPassword}
+            onChange={(e) => {
+              setExamPassword(e.target.value);
+              setPasswordError(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                if (examPassword.toLowerCase() === 'train') setIsPasswordUnlocked(true);
+                else setPasswordError(true);
+              }
+            }}
+            placeholder="Enter password"
+            className="px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-transparent text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button 
+            onClick={() => {
+              if (examPassword.toLowerCase() === 'train') setIsPasswordUnlocked(true);
+              else setPasswordError(true);
+            }}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+          >
+            Unlock
+          </button>
+        </div>
+        {passwordError && <p className="text-red-500 text-sm mt-2">Incorrect password. Please try again.</p>}
+        <Link href="/dashboard/modules" className="mt-8 text-sm text-blue-500 hover:underline">
+          Return to Curriculum
         </Link>
       </div>
     );

@@ -171,9 +171,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   };
 
   const isModuleUnlocked = (moduleId: string) => {
-    if (moduleId === "1") return true;
-    const prevModuleId = (parseInt(moduleId) - 1).toString();
-    return completedModules.includes(prevModuleId);
+    return true; // All modules unlocked by request
   };
 
   const overallProgress = Math.round((completedModules.length / moduleOrder.length) * 100);
