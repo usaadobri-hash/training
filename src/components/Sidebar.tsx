@@ -4,11 +4,34 @@ import { signout } from "@/app/auth/actions";
 import Link from "next/link";
 import { Truck, LayoutDashboard, BookOpen, Map, Award, Settings, LogOut, CheckCircle2, Globe, Menu, X } from "lucide-react";
 import { useProgress } from "@/context/ProgressContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function Sidebar() {
   const { overallProgress } = useProgress();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState<{ name: string; initials: string; avatarUrl: string | null } | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { createClient } = await import("@/utils/supabase/client");
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        const firstName = user.user_metadata?.first_name || "";
+        const lastName = user.user_metadata?.last_name || "";
+        const fullName = `${firstName} ${lastName}`.trim() || user.email || "Student";
+        const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase() || "ST";
+        
+        setUserProfile({
+          name: fullName,
+          initials,
+          avatarUrl: user.user_metadata?.avatar_url || null
+        });
+      }
+    };
+    fetchUser();
+  }, []);
 
   return (
     <>
@@ -131,12 +154,17 @@ export function Sidebar() {
         {/* Profile Card */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center">
-              <span className="text-sm font-medium text-zinc-900 dark:text-white">JS</span>
-            </div>
+            {userProfile?.avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={userProfile.avatarUrl} alt="Avatar" className="h-10 w-10 rounded-full object-cover border border-zinc-200 dark:border-zinc-700" />
+            ) : (
+              <div className="h-10 w-10 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center">
+                <span className="text-sm font-medium text-zinc-900 dark:text-white">{userProfile?.initials || "JS"}</span>
+              </div>
+            )}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-zinc-900 dark:text-white truncate">John Student</p>
-              <p className="text-xs text-zinc-500 truncate">Week 1 - Foundations</p>
+              <p className="text-sm font-medium text-zinc-900 dark:text-white truncate">{userProfile?.name || "John Student"}</p>
+              <p className="text-xs text-zinc-500 truncate">Dispatcher Academy</p>
             </div>
           </div>
           
