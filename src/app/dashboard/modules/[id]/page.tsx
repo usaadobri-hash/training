@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { ArrowLeft, CheckCircle2, PlayCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -45,7 +46,7 @@ export default async function ModulePage({ params }: { params: Promise<{ id: str
       <Card className="bg-white/80 dark:bg-zinc-900/50 border-zinc-200 dark:border-white/5 shadow-sm backdrop-blur-xl overflow-hidden">
         <CardContent className="p-8 sm:p-12">
           <div className="prose dark:prose-invert prose-blue max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-10 prose-h2:border-b prose-h2:border-zinc-200 dark:prose-h2:border-white/10 prose-h2:pb-2 prose-p:leading-relaxed">
-            <ReactMarkdown>{moduleData.content}</ReactMarkdown>
+            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{moduleData.content}</ReactMarkdown>
           </div>
         </CardContent>
       </Card>
