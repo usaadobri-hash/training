@@ -16,8 +16,8 @@ export function Sidebar() {
       <div className="md:hidden fixed top-0 left-0 w-full h-16 bg-white dark:bg-zinc-950 border-b border-black/10 dark:border-white/10 z-50 flex items-center justify-between px-4">
         <Link href="/dashboard" className="flex items-center gap-2" onClick={() => setIsMobileOpen(false)}>
           <div className="flex flex-col leading-none italic font-black tracking-tighter">
-            <span className="text-xl text-red-600">SARAY</span>
-            <span className="text-lg text-blue-700">EXPRESS INC</span>
+            <span className="text-xl text-zinc-900 dark:text-white">DISPATCHER</span>
+            <span className="text-lg text-blue-600">ACADEMY</span>
           </div>
         </Link>
         <button onClick={() => setIsMobileOpen(!isMobileOpen)} className="p-2 text-zinc-900 dark:text-white focus:outline-none">
@@ -39,8 +39,8 @@ export function Sidebar() {
       <div className="p-6 shrink-0">
         <Link href="/dashboard" className="flex items-center gap-2">
           <div className="flex flex-col leading-none italic font-black tracking-tighter">
-            <span className="text-2xl text-red-600">SARAY</span>
-            <span className="text-xl text-blue-700">EXPRESS INC</span>
+            <span className="text-2xl text-zinc-900 dark:text-white">DISPATCHER</span>
+            <span className="text-xl text-blue-600">ACADEMY</span>
           </div>
         </Link>
       </div>

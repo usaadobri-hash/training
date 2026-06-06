@@ -16,8 +16,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { AccessGuard } from "@/components/AccessGuard";
 
 export const metadata: Metadata = {
-  title: "Saray Express Training",
-  description: "Internal Dispatcher Training Platform",
+  title: "Dispatcher Academy",
+  description: "Dispatcher Training Platform",
 };
 
 export default function RootLayout({
