@@ -121,9 +121,9 @@ export default function EldSimulator() {
 
   // Remaining Times (Calculated)
   const breakRemaining = Math.max(0, 8 - timeSinceBreak);
-  const driveRemaining = Math.max(0, 11 - driveTime);
-  const shiftRemaining = Math.max(0, 14 - shiftTime);
   const cycleRemaining = Math.max(0, 70 - cycleTime);
+  const shiftRemaining = Math.max(0, Math.min(14 - shiftTime, cycleRemaining));
+  const driveRemaining = Math.max(0, Math.min(11 - driveTime, shiftRemaining));
 
   // Violations
   const isDriveViolation = driveTime > 11;
