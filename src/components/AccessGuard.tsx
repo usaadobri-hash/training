@@ -11,7 +11,7 @@ export function AccessGuard({ children }: { children: ReactNode }) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const access = localStorage.getItem("saray_access_granted");
+    const access = localStorage.getItem("academy_access_granted");
     if (access === "true") {
       // eslint-disable-next-line
       setHasAccess(true);
@@ -24,7 +24,7 @@ export function AccessGuard({ children }: { children: ReactNode }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password.toLowerCase().trim() === "pineapple") {
-      localStorage.setItem("saray_access_granted", "true");
+      localStorage.setItem("academy_access_granted", "true");
       setHasAccess(true);
     } else {
       setError(true);
@@ -49,9 +49,19 @@ export function AccessGuard({ children }: { children: ReactNode }) {
         
         {/* Logo */}
         <div className="flex justify-center mb-10">
-          <div className="flex flex-col items-center leading-none italic font-black tracking-tighter">
-            <span className="text-4xl text-red-600">SARAY</span>
-            <span className="text-3xl text-blue-700">EXPRESS INC</span>
+          <div className="flex flex-col items-center">
+            <div className="bg-blue-600 p-3 rounded-2xl mb-4 shadow-lg shadow-blue-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                <path d="M10 17h4V5H2v12h3"></path>
+                <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"></path>
+                <path d="M14 17h1"></path>
+                <circle cx="7.5" cy="17.5" r="2.5"></circle>
+                <circle cx="17.5" cy="17.5" r="2.5"></circle>
+              </svg>
+            </div>
+            <h1 className="text-3xl font-black tracking-tight text-white">
+              Dispatcher<span className="text-blue-500">Academy</span>
+            </h1>
           </div>
         </div>
 
