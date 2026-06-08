@@ -6,6 +6,7 @@ import { signout } from "@/app/auth/actions";
 import { useTheme } from "next-themes";
 import { useEffect, useState, useRef } from "react";
 import { createClient } from "@/utils/supabase/client";
+import { updateProfile, uploadAvatar } from "./actions";
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme();
@@ -19,7 +20,6 @@ export default function SettingsPage() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
   // UI State
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +40,6 @@ export default function SettingsPage() {
           setFirstName(user.user_metadata?.first_name || "");
           setLastName(user.user_metadata?.last_name || "");
           setAvatarUrl(user.user_metadata?.avatar_url || "");
-          setNotificationsEnabled(user.user_metadata?.notifications_enabled ?? true);
         }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (e: any) {
@@ -67,27 +66,13 @@ export default function SettingsPage() {
     setIsUploading(true);
     setFeedback(null);
     try {
-      const fileExt = file.name.split('.').pop();
-      const filePath = `${userId}-${Math.random()}.${fileExt}`;
+      const formData = new FormData();
+      formData.append("file", file);
+      
+      const res = await uploadAvatar(formData);
+      if (res.error) throw new Error(res.error);
 
-      // Upload to Supabase Storage
-      const { error: uploadError } = await supabase.storage
-        .from('avatars')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(filePath);
-
-      // Update user metadata
-      const { error: updateError } = await supabase.auth.updateUser({
-        data: { avatar_url: publicUrl }
-      });
-
-      if (updateError) throw updateError;
-
-      setAvatarUrl(publicUrl);
+      setAvatarUrl(res.avatarUrl!);
       setFeedback({ type: "success", message: "Avatar updated successfully!" });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -104,20 +89,15 @@ export default function SettingsPage() {
     setFeedback(null);
     setEmailWarning(null);
     try {
-      // 1. Update Metadata (Name)
-      const { error: metadataError } = await supabase.auth.updateUser({
-        data: {
-          first_name: firstName,
-          last_name: lastName
-        }
-      });
-      if (metadataError) throw metadataError;
+      const formData = new FormData();
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("email", email);
 
-      // 2. Update Email (Only if changed)
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user && user.email !== email) {
-        const { error: emailError } = await supabase.auth.updateUser({ email });
-        if (emailError) throw emailError;
+      const res = await updateProfile(formData);
+      if (res.error) throw new Error(res.error);
+
+      if (res.emailWarning) {
         setEmailWarning("A confirmation link has been sent to both your old and new email addresses. The change will take effect once confirmed.");
       }
 
@@ -127,23 +107,6 @@ export default function SettingsPage() {
       setFeedback({ type: "error", message: `Failed to save profile: ${e.message}` });
     } finally {
       setIsSaving(false);
-    }
-  };
-
-  const handleToggleNotifications = async () => {
-    const newValue = !notificationsEnabled;
-    setNotificationsEnabled(newValue);
-    try {
-      const { error } = await supabase.auth.updateUser({
-        data: { notifications_enabled: newValue }
-      });
-      if (error) throw error;
-      setFeedback({ type: "success", message: "Notification preferences updated!" });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      // Revert on failure
-      setNotificationsEnabled(!newValue);
-      setFeedback({ type: "error", message: `Failed to update preferences: ${e.message}` });
     }
   };
 
@@ -297,22 +260,6 @@ export default function SettingsPage() {
                 className={`w-12 h-6 rounded-full relative cursor-pointer transition-colors ${mounted && theme === 'dark' ? 'bg-blue-500' : 'bg-zinc-300 dark:bg-zinc-700'}`}
               >
                 <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${mounted && theme === 'dark' ? 'right-1' : 'left-1'}`}></div>
-              </div>
-            </div>
-            
-            <div className="flex items-center justify-between p-4 bg-zinc-50 dark:bg-black/50 rounded-xl border border-zinc-100 dark:border-white/5 transition-colors">
-              <div className="flex items-center gap-3">
-                <Bell className={`w-5 h-5 ${notificationsEnabled ? 'text-amber-500' : 'text-zinc-400'}`} />
-                <div>
-                  <p className="font-medium text-slate-900 dark:text-white transition-colors">Email Notifications</p>
-                  <p className="text-xs text-zinc-500">Receive updates about new modules and exams.</p>
-                </div>
-              </div>
-              <div 
-                onClick={handleToggleNotifications}
-                className={`w-12 h-6 rounded-full relative cursor-pointer transition-colors ${notificationsEnabled ? 'bg-amber-500' : 'bg-zinc-300 dark:bg-zinc-700'}`}
-              >
-                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${notificationsEnabled ? 'right-1' : 'left-1'}`}></div>
               </div>
             </div>
           </CardContent>

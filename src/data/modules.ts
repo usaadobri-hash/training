@@ -343,13 +343,7 @@ Instead of just searching, you can post your truck's location and equipment on t
 
 # Broker Communication & Negotiation
 
-<div class="my-6 p-4 bg-blue-900/30 border border-blue-500/50 rounded-xl flex items-center justify-between">
-  <div>
-    <h4 class="font-bold text-white mb-1">Interactive Simulator Available</h4>
-    <p class="text-zinc-300 text-sm">Practice calling brokers and negotiating with our AI Broker Simulator.</p>
-  </div>
-  <a href="/dashboard/simulators/broker" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-500 transition-colors">Launch Simulator</a>
-</div>
+
 
 ## 1. Calling Brokers
 When you call a broker from a load board posting, be fast and professional.
@@ -445,8 +439,7 @@ Before you take the Final Exam, you must simulate a full day in the life of a di
 
 ## Tasks to Complete:
 1. **Load Board Simulation:** Go to the Load Board simulator and find a profitable load for a 53' Reefer emptying out in Dallas, TX. Watch out for scams.
-2. **AI Broker Call:** Go to the Broker Simulator. Call the AI Broker on the load you found. Negotiate a rate that is at least $0.30/mile higher than their initial offer.
-3. **HOS Check:** Verify in the ELD Simulator that your driver has enough hours on their 70-hour clock to complete the transit legally.
+2. **HOS Check:** Verify in the ELD Simulator that your driver has enough hours on their 70-hour clock to complete the transit legally.
 
 ## The Final Exam
 Once you feel comfortable, proceed to the Assessments section in the sidebar and take the **Final Exam**. 

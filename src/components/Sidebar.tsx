@@ -124,9 +124,9 @@ export function Sidebar() {
               <CheckCircle2 className="w-4 h-4 text-blue-500" />
               <span>ELD & HOS</span>
             </Link>
-            <Link href="/dashboard/simulators/broker" className="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-white/5 hover:text-zinc-900 dark:hover:text-white transition-colors text-sm">
-              <Map className="w-4 h-4 text-purple-500" />
-              <span>AI Broker</span>
+            <Link href="/dashboard/simulators/trailer-types" className="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-white/5 hover:text-zinc-900 dark:hover:text-white transition-colors text-sm">
+              <Truck className="w-4 h-4 text-emerald-500" />
+              <span>Trailer Types</span>
             </Link>
           </div>
         </div>
